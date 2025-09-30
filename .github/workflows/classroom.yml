@@ -1,7 +1,7 @@
 name: Autograding Tests
 'on':
-- push
-- repository_dispatch
+  - push
+  - repository_dispatch
 permissions:
   checks: write
   actions: read
@@ -11,28 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     if: github.actor != 'github-classroom[bot]'
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-<<<<<<< HEAD
-    - name: Service Queue Tests
-      id: service-queue-tests
-=======
-    - name: RSVP Manager Test
-      id: rsvp-manager-test
->>>>>>> 7911d10b71d500fd53ded8be52f2a3e78026f693
-      uses: classroom-resources/autograding-python-grader@v1
-      with:
-        timeout: 10
-        setup-command: ''
-    - name: Autograding Reporter
-      uses: classroom-resources/autograding-grading-reporter@v1
-      env:
-<<<<<<< HEAD
-        SERVICE-QUEUE-TESTS_RESULTS: "${{steps.service-queue-tests.outputs.result}}"
-      with:
-        runners: service-queue-tests
-=======
-        RSVP-MANAGER-TEST_RESULTS: "${{steps.rsvp-manager-test.outputs.result}}"
-      with:
-        runners: rsvp-manager-test
->>>>>>> 7911d10b71d500fd53ded8be52f2a3e78026f693
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: RSVP Manager Test
+        id: rsvp-manager-test
+        uses: classroom-resources/autograding-python-grader@v1
+        with:
+          timeout: 10
+          setup-command: ''
+
+      - name: Autograding Reporter
+        uses: classroom-resources/autograding-grading-reporter@v1
+        env:
+          RSVP-MANAGER-TEST_RESULTS: "${{steps.rsvp-manager-test.outputs.result}}"
+        with:
+          runners: rsvp-manager-test
